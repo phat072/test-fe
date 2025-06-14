@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I LOVE BTS 💜</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .love-text {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #9d4edd;
+            text-shadow: 0 0 20px rgba(157, 78, 221, 0.8);
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .love-text:hover {
+            transform: scale(1.1);
+            color: #c77dff;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 20px rgba(157, 78, 221, 0.8);
+            }
+            to {
+                text-shadow: 0 0 30px rgba(199, 125, 255, 1), 0 0 40px rgba(199, 125, 255, 0.8);
+            }
+        }
+
+        .hearts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .heart {
+            position: absolute;
+            color: #e0aaff;
+            font-size: 2rem;
+            animation: fall 4s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .subtitle {
+            position: absolute;
+            bottom: 20%;
+            font-size: 1.2rem;
+            color: #c77dff;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .love-text {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="love-text" id="loveText">
+        I LOVE BTS 💜
+    </div>
+    
+    <div class="subtitle">
+        방탄소년단 사랑해 💜
+    </div>
+
+    <script>
+        // Tạo hiệu ứng tim rơi
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.innerHTML = '💜';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            
+            document.getElementById('hearts').appendChild(heart);
+            
+            // Xóa tim sau khi animation kết thúc
+            setTimeout(() => {
+                heart.remove();
+            }, 6000);
+        }
+
+        // Tạo tim mới mỗi 800ms
+        setInterval(createHeart, 800);
+
+        // Hiệu ứng click
+        document.getElementById('loveText').addEventListener('click', function() {
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = 'float 3s ease-in-out infinite, glow 2s ease-in-out infinite alternate';
+            }, 10);
+            
+            // Tạo nhiều tim khi click
+            for(let i = 0; i < 5; i++) {
+                setTimeout(createHeart, i * 100);
+            }
+        });
+
+        // Thay đổi màu background theo thời gian
+        let hue = 0;
+        setInterval(() => {
+            hue = (hue + 1) % 360;
+            document.body.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 70%) 0%, hsl(${(hue + 60) % 360}, 70%, 60%) 100%)`;
+        }, 100);
+    </script>
+</body>
+</html>
